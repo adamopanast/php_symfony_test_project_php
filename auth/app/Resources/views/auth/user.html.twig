@@ -1,0 +1,11 @@
+<?php
+
+use Symfony\Component\HttpFoundation\Response;
+
+$response = new Response();
+$response->setContent(json_encode(array(
+    'data' => 123,
+)));
+$response->headers->set('Content-Type', 'application/json');
+
+echo "response";

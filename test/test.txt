@@ -1,0 +1,51 @@
+(1) User exists (user 1), no api key 
+$1/symfony/auth/auth/web/app_dev.php/user/1
+{"ERROR":"API key does not exist."}
+
+
+
+(2) User exists (user 2), no api key
+curl $1/symfony/auth/auth/web/app_dev.php/user/2
+{"ERROR":"API key does not exist."}
+
+
+
+(3) User does not exist (user 5)
+curl $1/symfony/auth/auth/web/app_dev.php/user/5
+{"ERROR":"User does not exist."}
+
+
+
+(4) User exists, api key matches, should return user 1 details
+curl $1/symfony/auth/auth/web/app_dev.php/user/1 -u b48d0416-bc38-467d-8066-cd14bb7ead5e:
+{"id":1,"name":"George","last name":"Best","created_at":{"date":"2017-07-01 20:20:37.000000","timezone_type":3,"timezone":"UTC"}}
+
+
+
+(5) User exists, api key does not match
+curl $1/symfony/auth/auth/web/app_dev.php/user/2 -u b48d0416-bc38-467d-8066-cd14bb7ead5e:
+{"ERROR":"Wrong API key for user2 ."}
+
+
+
+(6) User does not exists, call contains api key
+curl $1/symfony/auth/auth/web/app_dev.php/user/5 -u b48d0416-bc38-467d-8066-cd14bb7ead5e:
+{"ERROR":"User does not exist."}
+
+
+
+(7) User exists, api key does not match
+curl $1/symfony/auth/auth/web/app_dev.php/user/1 -u b71fe516-efc2-479f-a986-4c58ae7b2ea8:
+{"ERROR":"Wrong API key for user1 ."}
+
+
+
+(8) User exist, api key matches, should return user 2 details
+curl $1/symfony/auth/auth/web/app_dev.php/user/2 -u b71fe516-efc2-479f-a986-4c58ae7b2ea8:
+{"id":2,"name":"Michael","last name":"Schumacher","created_at":{"date":"2017-07-01 20:20:57.000000","timezone_type":3,"timezone":"UTC"}}
+
+
+
+(9) User does not exist, call contains api key
+curl $1/symfony/auth/auth/web/app_dev.php/user/5 -u b71fe516-efc2-479f-a986-4c58ae7b2ea8:
+{"ERROR":"User does not exist."}
